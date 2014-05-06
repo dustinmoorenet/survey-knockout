@@ -1,0 +1,21 @@
+{
+  "name": "survey-knockout",
+  "version": "0.0.0",
+  "description": "A survey website / knockout example",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "knockout",
+    "survey",
+    "website",
+    "example"
+  ],
+  "author": "Dustin Moore",
+  "license": "Public Domain",
+  "dependencies": {
+    "express": "~4.1.1",
+    "serve-static": "~1.1.0"
+  }
+}
