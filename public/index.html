@@ -1,12 +1,26 @@
 <!doctype html>
 <html>
 <head>
+  <link rel="stylesheet" href="/css/all.css" />
   <script src="/js/extern/jquery.js"></script>
   <script src="/js/extern/knockout.js"></script>
   <script src="/js/extern/lodash.js"></script>
   <script src="/js/index.js"></script>
 </head>
 <body>
-hey now you just need some HTML
+<div class="questions" data-bind="foreach: questions">
+  <div class="question">
+    <div class="text" data-bind="text: text"></div>
+    <ol class="choices" data-bind="foreach: choices">
+      <li data-bind="text: $data,
+                     click: $parent.select,
+                     css: {selected: $parent.answers.indexOf($index()) != -1}"></li>
+    </ol>
+  </div>
+</div>
+<div class="progress">
+  <span data-bind="text: answered_question_count"></span> /
+  <span data-bind="text: questions().length"></span> questions answered
+</div>
 </body>
 </html>

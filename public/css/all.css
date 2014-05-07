@@ -1,0 +1,7 @@
+.choices {
+  list-style-type: upper-alpha;
+}
+
+.choices li.selected {
+  color: red;
+}

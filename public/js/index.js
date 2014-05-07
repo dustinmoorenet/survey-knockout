@@ -2,23 +2,51 @@ function Question(data) {
   var self = this;
 
   self.text = data.question;
-  self.possible_answers = data.possible_answers;
-  self.chosen_answers = ko.observableArray
+  self.choices = data.choices;
+  self.answers = ko.observableArray([]);
 
   if (_.isArray(data.correct_answer)) {
     self.correct_answers = data.correct_answer;
-    self.is_multiple_choice = true;
+    self.is_multiple_answer = true;
 
   } else {
     self.correct_answers = [data.correct_answer];
-    self.is_multiple_choice = false;
+    self.is_multiple_answer = false;
   }
+
+  self.select = function(answer) {
+    var index = _.indexOf(self.choices, answer);
+
+    if (self.is_multiple_answer) {
+      // add answer
+      if (self.answers.indexOf(index) == -1)
+        self.answers.push(index);
+      // remove answer
+      else
+        self.answers.remove(index);
+
+    // not multiple answers and new answer
+    } else if (self.answers.indexOf(index) == -1) {
+      self.answers.removeAll();
+      self.answers.push(index);
+    }
+  };
 }
 
 function QuestionsViewModel() {
   var self = this;
 
   self.questions = ko.observableArray([]);
+
+  self.answered_question_count = ko.computed(function() {
+    var count = 0;
+
+    _.forEach(self.questions(), function(question) {
+      count += (question.answers().length ? 1 : 0);
+    });
+
+    return count;
+  });
 }
 
 $(function() {
