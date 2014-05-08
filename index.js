@@ -6,10 +6,10 @@ app.use(serveStatic(__dirname + '/public'));
 
 app.get('/questions', function(req, res) {
   res.json([
-    {question: 'hey why?', choices: ['no', 'maybe', 'ok', 'what?'], correct_answer: 0},
-    {question: 'could you give me a correct answer for this possible question?', choices: ['cat in the road', 'dog in the house', 'cart in the tree', 'hog in the pin'], correct_answer: [1,3]},
-    {question: 'hey why?', choices: ['no', 'maybe', 'ok', 'what?'], correct_answer: 0},
-    {question: 'could you give me a correct answer for this possible question?', choices: ['cat in the road', 'dog in the house', 'cart in the tree', 'hog in the pin'], correct_answer: [1,3]}
+    {question: 'What color is the sky?', choices: ['red', 'green', 'blue', 'dreams'], correct_answer: 2},
+    {question: 'Which is a unit of length?', choices: ['meter', 'pound', 'watt', 'foot'], correct_answer: [0,3]},
+    {question: 'How many moons does Saturn have?', choices: ['4', '15', '62', '152'], correct_answer: 2},
+    {question: 'What is the chemical formula for salt', choices: ['NaCl', 'H2O', 'CO', 'NaHCO3'], correct_answer: 0}
   ]);
 });
 

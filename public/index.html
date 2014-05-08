@@ -8,19 +8,25 @@
   <script src="/js/index.js"></script>
 </head>
 <body>
-<div class="questions" data-bind="foreach: questions">
-  <div class="question">
+<div class="questions" data-bind="css: {graded: isGraded},
+                                  foreach: questions">
+  <div class="question" data-bind="css: {answered: isAnswered, correct: isCorrect}">
     <div class="text" data-bind="text: text"></div>
     <ol class="choices" data-bind="foreach: choices">
-      <li data-bind="text: $data,
-                     click: $parent.select,
-                     css: {selected: $parent.answers.indexOf($index()) != -1}"></li>
+      <li><span data-bind="text: $data,
+                           click: $parent.select,
+                           css: {selected: $parent.answers.indexOf($index()) != -1}"></span>
+      </li>
     </ol>
+    <div class="info" data-bind="text: info"></div>
   </div>
 </div>
 <div class="progress">
-  <span data-bind="text: answered_question_count"></span> /
+  <span data-bind="text: answeredQuestionCount"></span> /
   <span data-bind="text: questions().length"></span> questions answered
 </div>
+<div class="btn" data-bind="click: displayResults,
+                            text: buttonText,
+                            css: {enabled: canGrade}"></div>
 </body>
 </html>

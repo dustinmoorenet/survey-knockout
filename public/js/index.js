@@ -14,6 +14,12 @@ function Question(data) {
     self.is_multiple_answer = false;
   }
 
+  self.info = ko.computed(function() {
+    return (self.is_multiple_answer
+            ? 'pick one or more choices'
+            : 'pick one choice');
+  });
+
   self.select = function(answer) {
     var index = _.indexOf(self.choices, answer);
 
@@ -31,14 +37,26 @@ function Question(data) {
       self.answers.push(index);
     }
   };
+
+  self.isAnswered = ko.computed(function() {
+    return !!self.answers().length;
+  });
+
+  self.isCorrect = ko.computed(function() {
+    var answers = self.answers();
+
+    return (answers.length == self.correct_answers.length
+            && _.difference(self.answers(), self.correct_answers).length == 0);
+  });
 }
 
 function QuestionsViewModel() {
   var self = this;
 
   self.questions = ko.observableArray([]);
+  self.isGraded = ko.observable(false);
 
-  self.answered_question_count = ko.computed(function() {
+  self.answeredQuestionCount = ko.computed(function() {
     var count = 0;
 
     _.forEach(self.questions(), function(question) {
@@ -46,6 +64,18 @@ function QuestionsViewModel() {
     });
 
     return count;
+  });
+
+  self.displayResults = function() {
+    self.isGraded(true);
+  }
+
+  self.canGrade = ko.computed(function() {
+    return self.questions().length == self.answeredQuestionCount();
+  });
+
+  self.buttonText = ko.computed(function() {
+    return self.canGrade() ? 'Check Answers' : 'Answer All Questions';
   });
 }
 
